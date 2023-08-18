@@ -1,7 +1,20 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import pandas as pd
 
 app = Flask(__name__)
+
+# CORS(app)
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+cors = CORS(
+    app,
+    resources={r"/api/*": {"origins": [
+        'http://localhost:3000',
+        'http://192.168.0.101:3000',
+        'https://us-data-demo.pages.dev']
+        }
+    }
+)
 
 # Read the CSV file into a pandas DataFrame
 df = pd.read_csv('./data/us-500.csv')
