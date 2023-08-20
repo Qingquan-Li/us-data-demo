@@ -1,23 +1,22 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+import os
+
+from flask import request, jsonify
 import pandas as pd
 
-app = Flask(__name__)
-
-# CORS(app)
-# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
-cors = CORS(
-    app,
-    resources={r"/api/*": {"origins": [
-        'http://localhost:3000',
-        'http://192.168.0.101:3000',
-        'https://us-data-demo.pages.dev']
-        }
-    }
-)
+from app import app
 
 # Read the CSV file into a pandas DataFrame
-df = pd.read_csv('./data/us-500.csv')
+# `./`` means "the current directory". This can lead to issues if running
+# the script or application from a different directory because the path
+# will be relative to that new directory, and the file might not be found.
+# df = pd.read_csv('./data/us-500.csv')
+
+# Determine the absolute path to the directory where the current file (routes.py) is located.
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Build the path to the CSV file based on the location of the current file.
+us_500_csv_path = os.path.join(BASE_DIR, 'data', 'us-500.csv')
+# Read the CSV file into a pandas DataFrame
+df = pd.read_csv(us_500_csv_path)
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
@@ -58,6 +57,3 @@ def get_num_of_people_per_state():
     # Count the number of occurrences of each state in the DataFrame
     # and convert it to a dictionary and then to a JSON response
     return jsonify(df['state'].value_counts().to_dict())
-
-if __name__ == '__main__':
-    app.run(debug=True)

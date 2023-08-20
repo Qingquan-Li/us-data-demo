@@ -5,6 +5,7 @@
 ########## For backend (Python/Flask) ##########
 backend/.venv/
 backend/__pycache__/
+backend/**/__pycache__/
 
 ########## For frontend (JavaScript/React) ##########
 frontend/node_modules/
