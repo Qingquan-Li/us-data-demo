@@ -41,7 +41,6 @@ backend $ docker run -p 5000:5000 us-data-demo-backend
 ## Run the Backend with Docker Compose (Development/Production)
 
 > Gunicorn is used as the WSGI server.
-> Nginx is used as the reverse proxy server.
 
 ```bash
 # Build and run the container:
@@ -63,8 +62,3 @@ $ docker compose down
 
 - Running on http://localhost
 - View the api/data: http://localhost/api/data
-
-### Run the Container on a Server by Specifying the SERVER_NAME
-```bash
-$ SERVER_NAME=us-data-demo.qingquanli.com docker-compose up -d
-```
