@@ -1,0 +1,17 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: us-data-demo-backend
+    ports:
+      - "5000:5000"
+
+  nginx:
+    build: ./nginx
+    container_name: us-data-demo-nginx-proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    environment:
+      - SERVER_NAME=localhost
