@@ -21,7 +21,9 @@ backend $ source .venv/bin/activate
 - Running on http://127.0.0.1:5000
 - View the api/data: http://127.0.0.1:5000/api/data
 
-## Run the Backend with Docker (Local/Development)
+## Run the Backend with Docker
+
+> Gunicorn is used as the WSGI server.
 
 ```bash
 # Go to the backend directory:
@@ -37,28 +39,3 @@ backend $ docker run -p 5000:5000 us-data-demo-backend
 
 - Running on http://localhost:5000
 - View the api/data: http://localhost:5000/api/data
-
-## Run the Backend with Docker Compose (Development/Production)
-
-> Gunicorn is used as the WSGI server.
-
-```bash
-# Build and run the container:
-$ docker compose up --build
-# Stop the container:
-$ docker compose down
-```
-
-Or:
-
-```bash
-# Build the container without using cache:
-$ docker compose build --no-cache
-# Run the container in the background (detached mode):
-$ docker compose up -d
-# Stop the container:
-$ docker compose down
-```
-
-- Running on http://localhost
-- View the api/data: http://localhost/api/data

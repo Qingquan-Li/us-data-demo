@@ -6,12 +6,9 @@ services:
     ports:
       - "5000:5000"
 
-  nginx:
-    build: ./nginx
-    container_name: us-data-demo-nginx-proxy
+  frontend:
+    build:
+      context: ./frontend
+    container_name: us-data-demo-frontend
     ports:
-      - "80:80"
-    depends_on:
-      - backend
-    environment:
-      - SERVER_NAME=localhost
+      - "3000:80"

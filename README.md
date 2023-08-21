@@ -1,3 +1,26 @@
+# US Data Demo
+
+## 1. Run the Project
+
+1. Install Docker and Docker Compose
+
+2. Run the following commands:
+
+```bash
+# Go to the project directory:
+$ cd path/to/us-data-demo
+# Build the container without using cache:
+$ docker compose build --no-cache
+# Run the container in the background (detached mode):
+$ docker compose up -d
+# Stop the container:
+$ docker compose down
+```
+
+3. The project is running on http://localhost:3000
+
+## 2. About the Project
+
 Given: a dataset that contains the name, company, address and contact information of 500 people in the US (randomly generated).
 Dataset: `us-500.csv` source from [Free Sample Data - BrianDunning.com](https://www.briandunning.com/sample-data/)
 
