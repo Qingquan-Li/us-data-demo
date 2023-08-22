@@ -21,7 +21,7 @@ backend $ source .venv/bin/activate
 - Running on http://127.0.0.1:5000
 - View the api/data: http://127.0.0.1:5000/api/data
 
-## Run the Backend with Docker
+## Build and Run the Backend with Docker (Local/Development)
 
 > Gunicorn is used as the WSGI server.
 
@@ -39,3 +39,13 @@ backend $ docker run -p 5000:5000 us-data-demo-backend
 
 - Running on http://localhost:5000
 - View the api/data: http://localhost:5000/api/data
+
+## Download and Run the Backend Docker Container (Production)
+
+```bash
+# Download the Docker image:
+$ sudo docker pull qingquanli/us-data-demo-backend
+# Run the Docker container in the background (detached mode),
+# Port mapping: 5000:5000 (host:container):
+$ sudo docker run -d -p 5000:5000 qingquanli/us-data-demo-backend
+```

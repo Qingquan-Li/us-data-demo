@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import DataTable from './components/DataTable';
 import Search from './components/Search';
 
-const API_URL = 'http://127.0.0.1:5000/api';
+// Local:
+// const API_URL = 'http://localhost:5000/api';
+// Production:
+const API_URL = 'https://us-data-demo.qingquanli.com/api';
 
 export default function App() {
     const [data, setData] = useState([]);
