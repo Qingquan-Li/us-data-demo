@@ -1,25 +1,6 @@
 # US Data Demo
 
-## 1. Run the Project
-
-1. Install Docker and Docker Compose
-
-2. Run the following commands:
-
-```bash
-# Go to the project directory:
-$ cd path/to/us-data-demo
-# Build the container without using cache:
-$ docker compose build --no-cache
-# Run the container in the background (detached mode):
-$ docker compose up -d
-# Stop the container:
-$ docker compose down
-```
-
-3. The project is running on http://localhost:3000
-
-## 2. About the Project
+## 1. About the Project
 
 Given: a dataset that contains the name, company, address and contact information of 500 people in the US (randomly generated).
 Dataset: `us-500.csv` source from [Free Sample Data - BrianDunning.com](https://www.briandunning.com/sample-data/)
@@ -36,3 +17,42 @@ Task:
 3. Show summary statistics, such as the number of people per state
 
 4. Create a visualization to show the distribution of the people across the US, which can depend on the state or zip code.
+
+## 2. Run the Project with Docker
+
+1. Install Docker and Docker Compose
+
+2. Run the following commands:
+
+```bash
+# Go to the project directory:
+$ cd path/to/us-data-demo
+# Pull the latest images specified in docker-compose.prod.yml:
+$ docker-compose -f docker-compose.prod.yml pull
+# Run the containers with Docker Compose in detached mode:
+$ docker-compose -f docker-compose.prod.yml up -d
+```
+
+3. The project now is running on http://localhost:3000
+
+## 3. Build the Docker Images
+
+### Build the Docker images locally (development)
+
+```bash
+
+```bash
+# Go to the project directory:
+$ cd path/to/us-data-demo
+# Build the container without using cache:
+$ docker compose build --no-cache
+# Run the container in the background (detached mode):
+$ docker compose up -d
+# The project now is running on http://localhost:3000
+# Stop the container:
+$ docker compose down
+```
+
+### Build the Docker Images with GitHub Actions (Production)
+
+Details: check out `.github/workflows/docker_build.yml`

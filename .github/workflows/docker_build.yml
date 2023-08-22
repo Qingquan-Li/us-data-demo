@@ -5,9 +5,10 @@ name: Build and Push Docker Images
 on:
   # The workflow will be triggered when there's a push event.
   push:
-    # Specifically, when there's a push event on the following branches.
+    # Run the workflow only for the following branches.
     branches:
-      - dev  # Only trigger this workflow for pushes to the 'dev' branch.
+      - main
+      - dev
 
 # Define the jobs to be executed in this workflow.
 jobs:
@@ -35,7 +36,11 @@ jobs:
       with:
         context: ./backend                # Sets the build context to the backend directory.
         push: true                        # Pushes the image to DockerHub.
-        tags: qingquanli/us-data-demo-backend:latest  # Tag for the image.
+        # Tag Docker image as 'latest' when pushing to 'main' branch
+        # Tag Docker image as 'dev' when pushing to 'dev' branch
+        # tags: qingquanli/us-data-demo-backend:${{ github.ref == 'refs/heads/main' && 'latest' || 'dev' }}
+        tags: qingquanli/us-data-demo-backend:${{ github.ref == 'refs/heads/main' && 'latest' || (github.ref == 'refs/heads/dev' && 'dev') }}
+
 
   # Second job: build_frontend
   build_frontend:
@@ -61,4 +66,4 @@ jobs:
       with:
         context: ./frontend
         push: true
-        tags: qingquanli/us-data-demo-frontend:latest
+        tags: qingquanli/us-data-demo-frontend:${{ github.ref == 'refs/heads/main' && 'latest' || (github.ref == 'refs/heads/dev' && 'dev') }}
