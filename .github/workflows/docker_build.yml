@@ -1,0 +1,69 @@
+# Name of the GitHub Action workflow.
+name: Build and Push Docker Images
+
+# Defines the event that triggers this workflow.
+on:
+  # The workflow will be triggered when there's a push event.
+  push:
+    # Run the workflow only for the following branches.
+    branches:
+      - main
+      - dev
+
+# Define the jobs to be executed in this workflow.
+jobs:
+  # First job: build_backend
+  build_backend:
+    # Specifies the type of runner that the job will run on.
+    runs-on: ubuntu-20.04
+
+    # A job contains a sequence of tasks called 'steps'. 
+    steps:
+    # First step: Checkout the code from the current repo.
+    - name: Checkout code
+      uses: actions/checkout@v2  # Uses GitHub's official checkout action.
+
+    # Second step: Login to DockerHub.
+    - name: Login to DockerHub
+      uses: docker/login-action@v1  # Uses Docker's official login action.
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}  # Fetch the username from the repository's secrets.
+        password: ${{ secrets.DOCKERHUB_TOKEN }}     # Fetch the token/password from the repository's secrets.
+
+    # Third step: Build and push the backend Docker image to DockerHub.
+    - name: Build and push backend Docker image
+      uses: docker/build-push-action@v2  # Uses Docker's official build and push action.
+      with:
+        context: ./backend                # Sets the build context to the backend directory.
+        push: true                        # Pushes the image to DockerHub.
+        # Tag Docker image as 'latest' when pushing to 'main' branch
+        # Tag Docker image as 'dev' when pushing to 'dev' branch
+        # tags: qingquanli/us-data-demo-backend:${{ github.ref == 'refs/heads/main' && 'latest' || 'dev' }}
+        tags: qingquanli/us-data-demo-backend:${{ github.ref == 'refs/heads/main' && 'latest' || (github.ref == 'refs/heads/dev' && 'dev') }}
+
+
+  # Second job: build_frontend
+  build_frontend:
+    # This job will run only after the 'build_backend' job completes successfully.
+    needs: build_backend
+    # Specifies the type of runner that the job will run on.
+    runs-on: ubuntu-20.04
+
+    # Sequence of tasks for the job.
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    # Build and push the frontend Docker image to DockerHub.
+    - name: Build and push frontend Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: ./frontend
+        push: true
+        tags: qingquanli/us-data-demo-frontend:${{ github.ref == 'refs/heads/main' && 'latest' || (github.ref == 'refs/heads/dev' && 'dev') }}

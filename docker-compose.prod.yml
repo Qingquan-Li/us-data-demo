@@ -1,0 +1,14 @@
+services:
+  backend:
+    image: qingquanli/us-data-demo-backend:latest
+    container_name: us-data-demo-backend
+    ports:
+      - "5000:5000"
+    restart: always
+
+  frontend:
+    image: qingquanli/us-data-demo-frontend:latest
+    container_name: us-data-demo-frontend
+    ports:
+      - "3000:80"
+    restart: always
