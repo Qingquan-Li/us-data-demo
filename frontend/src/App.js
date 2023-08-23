@@ -1,41 +1,3 @@
-// import { useState, useEffect } from 'react';
-// import DataTable from './components/DataTable';
-// import Search from './components/Search';
-
-// // Local:
-// // const API_URL = 'http://localhost:5000/api';
-// // Production:
-// const API_URL = 'https://us-data-demo.qingquanli.com/api';
-
-// export default function App() {
-//     const [data, setData] = useState([]);
-
-//     useEffect(() => {
-//       const fetchData = async () => {
-//           try {
-//               const response = await fetch(API_URL + '/data');
-//               if (!response.ok) {
-//                   throw new Error('Network response was not ok');
-//               }
-//               const data = await response.json();
-//               setData(data);
-//           } catch (error) {
-//               console.error("There was a problem with the fetch operation:", error.message);
-//           }
-//       };
-//       fetchData();
-//     }, []);
-  
-//     return (
-//         <div className="App">
-//             <Search onSearch={setData} />
-//             <DataTable data={data} />
-//             {/* add Summary and Visualization components as needed */}
-//         </div>
-//     );
-// }
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
@@ -64,28 +26,27 @@ export default function App() {
     // Otherwise, the search will be a string (`zip` field from API is a number)
     let searchValue = targetValue;
     if (searchField === 'zip') {
-        searchValue = parseInt(targetValue, 10);
-        if (isNaN(searchValue)) {
-            alert('Please enter a valid ZIP code.');
-            return;
-        }
+      searchValue = parseInt(targetValue, 10);
+      if (isNaN(searchValue)) {
+        alert('Please enter a valid ZIP code.');
+        return;
+      }
     }
 
     const result = await axios.post(API_URL + '/search', {
-        search_field: searchField,
-        target_value: searchValue
+      search_field: searchField,
+      target_value: searchValue
     });
 
     setData(result.data);
-};
+  };
 
 
   return (
-    <div className="App">
-      <h1>US Data 500</h1>
-      <button onClick={() => window.location.reload(false)}>Refresh</button>
-      <div>
-        <select value={searchField} onChange={e => setSearchField(e.target.value)}>
+    <div className="min-h-screen flex flex-col p-4">
+      <button className="text-3xl font-bold mb-4" onClick={() => window.location.reload(false)}>US Data 500</button>
+      <div className="mb-6">
+        <select className="border p-2 rounded mr-2" value={searchField} onChange={e => setSearchField(e.target.value)}>
           <option value="">Select a field</option>
           <option value="first_name">First Name</option>
           <option value="last_name">Last Name</option>
@@ -101,38 +62,37 @@ export default function App() {
           <option value="web">Web</option>
         </select>
         <input
+          className="border p-2 rounded mr-2"
           type="text"
           placeholder="Search..."
           value={targetValue}
           onChange={e => setTargetValue(e.target.value)}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button className="px-4 py-2 bg-blue-600 text-white rounded" onClick={handleSearch}>
+          Search
+        </button>
       </div>
       {data.length === 1 && searchField === 'first_name' ? (
-        <div>
-          <img src="https://raw.githubusercontent.com/jinchen003/Nearabl.Sample.Data/main/user.png" alt="User Icon" />
-          {/* Display user details */}
+        <div className="flex items-center">
+          <img className="mr-4" src="https://raw.githubusercontent.com/jinchen003/Nearabl.Sample.Data/main/user.png" alt="User Icon" />
           <div>
-            <h2>{data[0].first_name} {data[0].last_name}</h2>
-            <p>Email: {data[0].email}</p>
-            {/* Add more details as needed */}
+            <h2 className="text-xl font-semibold">{data[0].first_name} {data[0].last_name}</h2>
+            <p className="text-gray-700">Email: {data[0].email}</p>
           </div>
         </div>
       ) : data.length === 1 && searchField === 'company_name' ? (
         <div>
-          <video width="320" height="240" controls>
+          <video className="w-96 mb-4" controls>
             <source src="https://raw.githubusercontent.com/jinchen003/Nearabl.Sample.Data/main/neARabl.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          {/* Display company details */}
           <div>
-            <h2>{data[0].company_name}</h2>
-            <p>Address: {data[0].address}</p>
-            {/* Add more details as needed */}
+            <h2 className="text-xl font-semibold">{data[0].company_name}</h2>
+            <p className="text-gray-700">Address: {data[0].address}</p>
           </div>
         </div>
       ) : (
-        <table>
+        <table className="border-collapse border-2 border-gray-600 w-full">
           <thead>
             <tr>
               <th>First Name</th>
@@ -151,19 +111,19 @@ export default function App() {
           </thead>
           <tbody>
             {data.map(person => (
-              <tr key={person.email}>
-                <td>{person.first_name}</td>
-                <td>{person.last_name}</td>
-                <td>{person.company_name}</td>
-                <td>{person.address}</td>
-                <td>{person.city}</td>
-                <td>{person.county}</td>
-                <td>{person.state}</td>
-                <td>{person.zip}</td>
-                <td>{person.phone1}</td>
-                <td>{person.phone2}</td>
-                <td>{person.email}</td>
-                <td>{person.web}</td>
+              <tr key={person.email} className="hover:bg-gray-200">
+                <td className="border-2 border-gray-400 p-2">{person.first_name}</td>
+                <td className="border-2 border-gray-400 p-2">{person.last_name}</td>
+                <td className="border-2 border-gray-400 p-2">{person.company_name}</td>
+                <td className="border-2 border-gray-400 p-2">{person.address}</td>
+                <td className="border-2 border-gray-400 p-2">{person.city}</td>
+                <td className="border-2 border-gray-400 p-2">{person.county}</td>
+                <td className="border-2 border-gray-400 p-2">{person.state}</td>
+                <td className="border-2 border-gray-400 p-2">{person.zip}</td>
+                <td className="border-2 border-gray-400 p-2">{person.phone1}</td>
+                <td className="border-2 border-gray-400 p-2">{person.phone2}</td>
+                <td className="border-2 border-gray-400 p-2">{person.email}</td>
+                <td className="border-2 border-gray-400 p-2">{person.web}</td>
               </tr>
             ))}
           </tbody>
