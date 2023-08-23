@@ -6,17 +6,31 @@ export default function DataTableAndSearch() {
   const [data, setData] = useState([]);
   const [searchField, setSearchField] = useState('');
   const [targetValue, setTargetValue] = useState('');
+  const [hasSearched, setHasSearched] = useState(false);
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await axios(RootAPIURL + '/data');
+  //     setData(result.data);
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  // For "Refresh" button
+  const fetchData = async () => {
+    const result = await axios(RootAPIURL + '/data');
+    setData(result.data);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(RootAPIURL + '/data');
-      setData(result.data);
-    };
-
     fetchData();
   }, []);
 
   const handleSearch = async () => {
+    if (!searchField) {
+      alert('Please select a field before searching.');
+      return;
+    }
     // Convert the target value to a number if the search field is 'zip'
     // Otherwise, the search will be a string (`zip` field from API is a number)
     let searchValue = targetValue;
@@ -27,15 +41,24 @@ export default function DataTableAndSearch() {
         return;
       }
     }
-
     const result = await axios.post(RootAPIURL + '/search', {
       search_field: searchField,
       target_value: searchValue
     });
-
     setData(result.data);
+    // Set to true once a search is executed
+    setHasSearched(true);
+
   };
 
+  // For "Go Back to the US Data 500 Table" button
+  const handleReset = () => {
+    setSearchField('');
+    setTargetValue('');
+    fetchData();
+    // Set back to false once the table is reset
+    setHasSearched(false);
+  };
 
   return (
     <div className="min-h-screen flex flex-col p-4">
@@ -66,6 +89,12 @@ export default function DataTableAndSearch() {
         <button className="px-4 py-2 bg-blue-600 text-white rounded" onClick={handleSearch}>
           Search
         </button>
+        {/* Conditionally render the button based on hasSearched */}
+        {hasSearched && (
+          <button className="px-4 py-2 bg-blue-600 text-white rounded mx-1" onClick={handleReset}>
+            Go Back to the US Data 500 Table
+          </button>
+        )}
       </div>
       {data.length === 1 && searchField === 'first_name' ? (
         <div className="flex items-center">
