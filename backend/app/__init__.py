@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_cors import CORS
-import pandas as pd
 
 app = Flask(__name__)
 
@@ -18,4 +17,4 @@ cors = CORS(
 )
 
 # Import the routes module (defined in routes.py) from the api package
-from app import routes
+from app import routes  # noqa

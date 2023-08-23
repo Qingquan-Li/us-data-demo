@@ -5,6 +5,7 @@ import pandas as pd
 
 from app import app
 
+
 # Read the CSV file into a pandas DataFrame
 # `./`` means "the current directory". This can lead to issues if running
 # the script or application from a different directory because the path
@@ -17,6 +18,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 us_500_csv_path = os.path.join(BASE_DIR, 'data', 'us-500.csv')
 # Read the CSV file into a pandas DataFrame
 df = pd.read_csv(us_500_csv_path)
+
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
@@ -36,6 +38,7 @@ def get_data():
     # ]
     return jsonify(df.to_dict(orient='records'))
 
+
 @app.route('/api/search', methods=['POST'])
 def search_data():
     # Extract 'search_field' and 'target_value' from the incoming JSON request
@@ -44,12 +47,14 @@ def search_data():
     #     "search_field": "state",
     #     "target_value": "NY"
     # }
+    # search_field: 'state', 'first_name', 'company_name'
     search_field = request.json['search_field']
     target_value = request.json['target_value']
     # Filter the DataFrame by the given 'search_field' and 'target_value'
     filtered_df = df[df[search_field] == target_value]
     # Return the filtered DataFrame as a JSON response
     return jsonify(filtered_df.to_dict(orient='records'))
+
 
 @app.route('/api/num-of-people-per-state', methods=['GET'])
 def get_num_of_people_per_state():
