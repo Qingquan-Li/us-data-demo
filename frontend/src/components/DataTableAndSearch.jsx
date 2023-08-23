@@ -39,7 +39,7 @@ export default function DataTableAndSearch() {
 
   return (
     <div className="min-h-screen flex flex-col p-4">
-      <button className="text-3xl font-bold mb-4" onClick={() => window.location.reload(false)}>US Data 500</button>
+      
       <div className="mb-6">
         <select className="border p-2 rounded mr-2" value={searchField} onChange={e => setSearchField(e.target.value)}>
           <option value="">Select a field</option>
