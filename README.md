@@ -14,9 +14,9 @@ Task:
 - If searched by first_name (e.g., Valentine) with a single result, display the user icon (user.png) with information about that person instead of the table.
 - If searched by company_name (e.g., Printing Dimensions) with a single result, display the video (example.mp4) along with other information like company name and address.
 
-3. Show summary statistics, such as the number of people per state
+3. Optional: Show summary statistics, such as the number of people per state
 
-4. Create a visualization to show the distribution of the people across the US, which can depend on the state or zip code.
+4. Optional: Create a visualization to show the distribution of the people across the US, which can depend on the state or zip code.
 
 ## 2. Run the Project with Docker
 
