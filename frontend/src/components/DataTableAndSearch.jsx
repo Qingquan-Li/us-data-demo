@@ -98,7 +98,7 @@ export default function DataTableAndSearch() {
       </div>
       {data.length === 1 && searchField === 'first_name' ? (
         <div className="flex items-center">
-          <img className="mr-4" src="https://raw.githubusercontent.com/jinchen003/Nearabl.Sample.Data/main/user.png" alt="User Icon" />
+          <img className="mr-4" src="https://raw.githubusercontent.com/Qingquan-Li/files/main/us-data-demo/user.png" alt="User Icon" />
           <div>
             <h2 className="text-xl font-semibold">{data[0].first_name} {data[0].last_name}</h2>
             <p className="text-gray-700">Company Name: {data[0].company_name}</p>
@@ -116,7 +116,7 @@ export default function DataTableAndSearch() {
       ) : data.length === 1 && searchField === 'company_name' ? (
         <div>
           <video className="w-96 mb-4" controls>
-            <source src="https://raw.githubusercontent.com/jinchen003/Nearabl.Sample.Data/main/neARabl.mp4" type="video/mp4" />
+            <source src="https://raw.githubusercontent.com/Qingquan-Li/files/main/us-data-demo/neARabl.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           <div>
