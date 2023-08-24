@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Chart, registerables } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { RootAPIURL } from './RootAPIURL';
 
 // Register everything from Chart.js
 Chart.register(...registerables);
@@ -10,10 +12,20 @@ export default function PeopleDistribution() {
 
   useEffect(() => {
     // Fetch data from API when component mounts
-    fetch('http://localhost:5000/api/num-of-people-per-state')
-      .then(response => response.json())
-      .then(data => setData(data))
-      .catch(err => console.error('Error fetching data:', err));
+    // fetch(RootAPIURL + '/num-of-people-per-state')
+    //   .then(response => response.json())
+    //   .then(data => setData(data))
+    //   .catch(err => console.error('Error fetching data:', err));
+
+    // Use Axios instead of the built-in fetch function:
+    axios.get(RootAPIURL + '/num-of-people-per-state')
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(err => {
+        console.error('Error fetching data:', err);
+      });
+
   }, []);
 
   if (!data) {
