@@ -21,18 +21,18 @@ jobs:
     steps:
     # First step: Checkout the code from the current repo.
     - name: Checkout code
-      uses: actions/checkout@v2  # Uses GitHub's official checkout action.
+      uses: actions/checkout@v3  # Uses GitHub's official checkout action.
 
     # Second step: Login to DockerHub.
     - name: Login to DockerHub
-      uses: docker/login-action@v1  # Uses Docker's official login action.
+      uses: docker/login-action@v2  # Uses Docker's official login action.
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}  # Fetch the username from the repository's secrets.
         password: ${{ secrets.DOCKERHUB_TOKEN }}     # Fetch the token/password from the repository's secrets.
 
     # Third step: Build and push the backend Docker image to DockerHub.
     - name: Build and push backend Docker image
-      uses: docker/build-push-action@v2  # Uses Docker's official build and push action.
+      uses: docker/build-push-action@v4  # Uses Docker's official build and push action.
       with:
         context: ./backend                # Sets the build context to the backend directory.
         push: true                        # Pushes the image to DockerHub.
@@ -52,17 +52,17 @@ jobs:
     # Sequence of tasks for the job.
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Login to DockerHub
-      uses: docker/login-action@v1
+      uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     # Build and push the frontend Docker image to DockerHub.
     - name: Build and push frontend Docker image
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v4
       with:
         context: ./frontend
         push: true
