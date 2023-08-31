@@ -13,4 +13,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Set the command to run the application using gunicorn
 # "app:app" tells Gunicorn to look in the app module (or app.py file)
 # for a Flask application instance named app.
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers=2", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers=1", "app:app"]

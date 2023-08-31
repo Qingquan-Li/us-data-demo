@@ -1,5 +1,8 @@
 # US Data Demo
 
+<img width="1552" alt="US Data Demo Website Screenshot" src="https://github.com/Qingquan-Li/us-data-demo/assets/19491358/bc823060-a43a-43c5-975c-48fbf159a0b5">
+
+
 ## 1. About the Project
 
 Given: a dataset that contains the name, company, address and contact information of 500 people in the US (randomly generated).
@@ -14,11 +17,32 @@ Task:
 - If searched by first_name (e.g., Valentine) with a single result, display the user icon (user.png) with information about that person instead of the table.
 - If searched by company_name (e.g., Printing Dimensions) with a single result, display the video (example.mp4) along with other information like company name and address.
 
-3. Optional: Show summary statistics, such as the number of people per state
+3. Show summary statistics, such as the number of people per state
 
-4. Optional: Create a visualization to show the distribution of the people across the US, which can depend on the state or zip code.
+4. Create a visualization to show the distribution of the people across the US, which can depend on the state or zip code.
 
-## 2. Run the Project with Docker
+
+## 2. Tech Stack
+
+- Frontend:
+  - Language:
+    - JavaScript
+  - Frameworks/Libraries:
+    - React.js
+    - Tailwind CSS
+- Backend:
+  - Language:
+    - Python
+  - Frameworks/Libraries:
+    - Flask
+- Deployment:
+    - Docker on a Linux Server
+    - Nginx
+- CI/CD:
+    - GitHub Actions
+
+
+## 3. Run the Project
 
 1. Install Docker and Docker Compose
 
@@ -35,9 +59,10 @@ $ docker-compose -f docker-compose.prod.yml up -d
 
 3. The project now is running on http://localhost:3000
 
-## 3. Build the Docker Images
 
-### Build the Docker images locally (development)
+## 4. Build the Docker Images
+
+### 4.1 Build the Docker images locally (Development)
 
 ```bash
 
@@ -53,6 +78,6 @@ $ docker compose up -d
 $ docker compose down
 ```
 
-### Build the Docker Images with GitHub Actions (Production)
+### 4.2 Build the Docker Images with GitHub Actions (Production)
 
 Details: check out `.github/workflows/docker_build.yml`
